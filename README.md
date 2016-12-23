@@ -15,15 +15,12 @@ yarn add react-native-popup-dialog
 
 ## Exposed Modules
 
-1. Dialog
-2. PopupDialog
-3. DialogButton
-4. DialogTitle
-5. Overlay
-6. Animation
-7. DefaultAnimation
-8. ScaleAnimation
-9. SlideAnimation
+1. Pupup
+2. Overlay
+3. Animation
+4. DefaultAnimation
+5. ScaleAnimation
+6. SlideAnimation
 
 
 ## Examples
@@ -97,14 +94,13 @@ import PopupDialog, { DialogTitle } from 'react-native-popup-dialog';
 
 ## Props
 
-### PopupDialog
+### Popup
 | Prop | Type | Default | Note |
 |---|---|---|---|
-| `dialogTitle` | `React Element` | | You can pass a `DialogTitle` component or pass a `View` for customizing titlebar |
 | `width` | `Number` | Your device width | The Width of Dialog, you can use fixed width or use percentage
 | `height` | `Number` | 300 | The Width of Dialog, you can use fixed height or use percentage
-| `dialogAnimation` |  | `DefaultAnimation` | animation for dialog | |
-| `dialogStyle` | `Object` or `Number` | | | |
+| `popupAnimation` |  | `DefaultAnimation` | animation for dialog | |
+| `cententStyle` | `Object` or `Number` | | | |
 | `animationDuration` | `Number` | `200` | | |
 | `overlayPointerEvents` | `String` | | Available option: `auto`, `none` |
 | `overlayBackgroundColor` | `String` | `#000` |
@@ -114,31 +110,6 @@ import PopupDialog, { DialogTitle } from 'react-native-popup-dialog';
 | `open` | `Bool` | `false` |  | |
 | `onOpened` | `Function` | | You can pass onOpend function as a aallback function, will call the function while dialog opened | |
 | `onClosed` | `Function` | | You can pass onClosed function as a callback function, will call the function while dialog closed | |
-| `actions` | `Array` | | Array of `DialogButton` component for example: ```[<DialogButton text="CLOSE", align="center" onPress={this.closeDialog}/>]``` | |
-
-
-### DialogTitle
-| Prop | Type | Default | Note |
-|---|---|---|---|
-| `title` | `String` | | | |
-| `titleStyle` | `Object` or `Number` | | | |
-| `titleTextStyle` | `Object` or `Number` | | | |
-| `titleAlign` | `String` | `center` | | |
-| `haveTitleBar` | `Bool` | `true` | | |
-
-
-### DialogButton
-| Prop | Type | Default | Note |
-|---|---|---|---|
-| `text` | `String` | | | |
-| `align` | `String` | `center` | The position of the button. Available option: `left`, `center`, `right` | |
-| `onPress` | `Function` | | | |
-| `buttonStyle` | `Object` or `Number` | | | |
-| `textStyle` | `Object` or `Number` | | | |
-| `textContainerStyle` | `Object` or `Number` | | | |
-| `disabled` | `Boolean` | `false` | | |
-| `activeOpacity` | `Number` | | | |
-
 
 ## Animation
 ### Params for (*)Animation

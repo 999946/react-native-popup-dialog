@@ -14,27 +14,27 @@ type Props = {
   overlayPointerEvents: string;
   overlayBackgroundColor: string;
   overlayOpacity: number;
-  dialogAnimation: Object;
-  dialogStyle: Object | number;
+  popupAnimation: Object;
+  containerStyle: Object | number;
+  cententStyle: Object | number;
   animationDuration: number;
   closeOnTouchOutside: bool;
   open: bool;
   onOpened: Function;
   onClosed: Function;
-  actions: Array;
   children: any;
 };
 
 const defaultProps = {
   animationDuration: 200,
-  dialogAnimation: new DefaultAnimation({ animationDuration: 150 }),
+  popupAnimation: new DefaultAnimation({ animationDuration: 150 }),
   width: WIDTH,
   height: 300,
   closeOnTouchOutside: true,
   haveOverlay: true,
 };
 
-class Dialog extends Component {
+class Popup extends Component {
   props: Props;
   static defaultProps = defaultProps;
 
@@ -42,7 +42,7 @@ class Dialog extends Component {
     super(props);
     // opened, opening, closed, closing,
     this.state = {
-      dialogState: 'closed',
+      popupState: 'closed',
     };
 
     this.onOverlayPress = this.onOverlayPress.bind(this);
@@ -70,15 +70,15 @@ class Dialog extends Component {
     }
   }
 
-  setDialogState(toValue, callback) {
-    this.props.dialogAnimation.toValue(toValue);
-    let dialogState = toValue ? 'opening' : 'closing';
+  setpopupState(toValue, callback) {
+    this.props.popupAnimation.toValue(toValue);
+    let popupState = toValue ? 'opening' : 'closing';
 
-    this.setState({ dialogState });
+    this.setState({ popupState });
 
     setTimeout(() => {
-      dialogState = dialogState === 'closing' ? 'closed' : 'opened';
-      this.setState({ dialogState });
+      popupState = popupState === 'closing' ? 'closed' : 'opened';
+      this.setState({ popupState });
       if (callback && typeof callback === 'function') callback();
     }, this.props.animationDuration);
   }
@@ -95,46 +95,45 @@ class Dialog extends Component {
   }
 
   open(onOpened = this.props.onOpened) {
-    this.setDialogState(1, onOpened);
+    this.setpopupState(1, onOpened);
   }
 
   close(onClosed = this.props.onClosed) {
-    this.setDialogState(0, onClosed);
+    this.setpopupState(0, onClosed);
   }
 
   get pointerEvents() {
     if (this.props.overlayPointerEvents) {
       return this.props.overlayPointerEvents;
     }
-    return this.state.dialogState === 'opened' ? 'auto' : 'none';
+    return this.state.popupState === 'opened' ? 'auto' : 'none';
   }
 
   render() {
     let hidden;
-    let dialog;
+    let centent;
 
-    const dialogState = this.state.dialogState;
+    const popupState = this.state.popupState;
     const overlayPointerEvents = this.pointerEvents;
-    const isShowOverlay = (['opened', 'opening'].includes(dialogState) && this.props.haveOverlay);
+    const isShowOverlay = (['opened', 'opening'].includes(popupState) && this.props.haveOverlay);
 
-    if (dialogState === 'closed') {
+    if (popupState === 'closed') {
       hidden = styles.hidden;
     } else {
       const size = this.calculateDialogSize(this.props);
-      dialog = (
+      centent = (
         <Animated.View
           style={[
-            styles.dialog, size, this.props.dialogStyle, this.props.dialogAnimation.animations,
+            styles.centent, size, this.props.cententStyle, this.props.popupAnimation.animations,
           ]}
         >
           {this.props.children}
-          {this.props.actions}
         </Animated.View>
       );
     }
 
     return (
-      <View style={[styles.container, hidden]}>
+      <View style={[styles.container, this.props.containerStyle, hidden]}>
         <Overlay
           pointerEvents={overlayPointerEvents}
           showOverlay={isShowOverlay}
@@ -143,7 +142,7 @@ class Dialog extends Component {
           opacity={this.props.overlayOpacity}
           animationDuration={this.props.animationDuration}
         />
-        {dialog}
+        {centent}
       </View>
     );
   }
@@ -160,7 +159,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  dialog: {
+  centent: {
     borderRadius: 8,
     backgroundColor: '#ffffff',
   },
@@ -172,4 +171,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Dialog;
+export default Popup;
