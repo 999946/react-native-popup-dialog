@@ -8,8 +8,6 @@ import DefaultAnimation from '../animations/DefaultAnimation';
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 type Props = {
-  width: number;
-  height: number;
   haveOverlay: bool;
   overlayPointerEvents: string;
   overlayBackgroundColor: string;
@@ -28,8 +26,6 @@ type Props = {
 const defaultProps = {
   animationDuration: 200,
   popupAnimation: new DefaultAnimation({ animationDuration: 150 }),
-  width: WIDTH,
-  height: 300,
   closeOnTouchOutside: true,
   haveOverlay: true,
 };
@@ -70,7 +66,7 @@ class Popup extends Component {
     }
   }
 
-  setpopupState(toValue, callback) {
+  setPopupState(toValue, callback) {
     this.props.popupAnimation.toValue(toValue);
     let popupState = toValue ? 'opening' : 'closing';
 
@@ -83,23 +79,12 @@ class Popup extends Component {
     }, this.props.animationDuration);
   }
 
-  calculateDialogSize({ width, height }): Object {
-    const size = { width, height };
-    if (width > 0.0 && width < 1.0) {
-      size.width = width * WIDTH;
-    }
-    if (height > 0.0 && height < 1.0) {
-      size.height = height * HEIGHT;
-    }
-    return size;
-  }
-
   open(onOpened = this.props.onOpened) {
-    this.setpopupState(1, onOpened);
+    this.setPopupState(1, onOpened);
   }
 
   close(onClosed = this.props.onClosed) {
-    this.setpopupState(0, onClosed);
+    this.setPopupState(0, onClosed);
   }
 
   get pointerEvents() {
@@ -120,11 +105,10 @@ class Popup extends Component {
     if (popupState === 'closed') {
       hidden = styles.hidden;
     } else {
-      const size = this.calculateDialogSize(this.props);
       centent = (
         <Animated.View
           style={[
-            styles.centent, size, this.props.cententStyle, this.props.popupAnimation.animations,
+            styles.centent, this.props.cententStyle, this.props.popupAnimation.animations,
           ]}
         >
           {this.props.children}

@@ -97,8 +97,6 @@ import PopupDialog, { DialogTitle } from 'react-native-popup-dialog';
 ### Popup
 | Prop | Type | Default | Note |
 |---|---|---|---|
-| `width` | `Number` | Your device width | The Width of Dialog, you can use fixed width or use percentage
-| `height` | `Number` | 300 | The Width of Dialog, you can use fixed height or use percentage
 | `popupAnimation` |  | `DefaultAnimation` | animation for dialog | |
 | `containerStyle` | `Object` or `Number` | | | |
 | `cententStyle` | `Object` or `Number` | | | |
