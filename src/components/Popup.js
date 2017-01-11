@@ -12,11 +12,11 @@ type Props = {
   overlayPointerEvents: string;
   overlayBackgroundColor: string;
   overlayOpacity: number;
+  onOverlayPress: Function;
   popupAnimation: Object;
   containerStyle: Object | number;
   cententStyle: Object | number;
   animationDuration: number;
-  closeOnTouchOutside: bool;
   open: bool;
   onOpened: Function;
   onClosed: Function;
@@ -41,7 +41,6 @@ class Popup extends Component {
       popupState: 'closed',
     };
 
-    this.onOverlayPress = this.onOverlayPress.bind(this);
   }
 
   componentDidMount() {
@@ -58,12 +57,6 @@ class Popup extends Component {
       return this.close(nextProps.onClosed);
     }
     return nextProps;
-  }
-
-  onOverlayPress() {
-    if (this.props.closeOnTouchOutside) {
-      this.close();
-    }
   }
 
   setPopupState(toValue, callback) {
@@ -121,7 +114,7 @@ class Popup extends Component {
         <Overlay
           pointerEvents={overlayPointerEvents}
           showOverlay={isShowOverlay}
-          onPress={this.onOverlayPress}
+          onPress={this.props.onOverlayPress}
           backgroundColor={this.props.overlayBackgroundColor}
           opacity={this.props.overlayOpacity}
           animationDuration={this.props.animationDuration}
